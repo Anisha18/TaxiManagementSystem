@@ -5,16 +5,22 @@
 		{% else %}
 		<title>Home Page</title>
 		{% endif %}
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base.css') }}">
 	</head>
 	<body>
+		<style>
+    		body {
+			background-image: url('https://www.freegreatpicture.com/files/147/6651-background-color.jpg');
+    		}
+    		</style>
 		<div>
-			<a href="{{ url_for('index') }}">Home</a>
-			<a href="{{ url_for('login') }}">Login</a>
+			<a class="main" href="{{ url_for('index') }}">Home</a>
+			<a class="main" href="{{ url_for('login') }}">Login</a>
 		</div>
 		<hr>
 		{% with messages = get_flashed_messages() %}
 		{% if messages %}
-		<ul>
+		<ul class="msg">
 			{% for message in messages %}
 			<li>{{ message }}</li>
 			{% endfor %}

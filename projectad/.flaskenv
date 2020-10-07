@@ -1,2 +1,3 @@
 FLASK_APP = projectad.py
-DATABASE_URL = "postgresql://localhost/postgres_db"
+APP_SETTINGS = "config.DevelopmentConfig"
+DATABASE_URL = "postgresql://localhost/postgres"

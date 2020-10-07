@@ -1,8 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
+	<head>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='login.css') }}">
+	</head>
+	<style>
+    	body {
+		background-image: url('https://www.freegreatpicture.com/files/147/6651-background-color.jpg');
+    	}
+    	</style>
 	<h1>Sign In</h1>
-	<form action="" method="post" novalidate>
+	<form class="login" action="" method="post" novalidate>
 		{{ form.hidden_tag() }}
 		<p>
 			{{ form.username.label }}<br>

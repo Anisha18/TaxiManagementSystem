@@ -1,0 +1,21 @@
+body{
+	margin:0;
+	padding:0;
+}
+
+form{
+	width:300px;
+	margin:0 auto;
+	color:#277582;
+}
+
+h1{
+	text-align: center;
+    	color: #277582;
+    	padding: 20px;
+}
+
+label{
+    color: #277582;
+    font-size: 30px;
+}
