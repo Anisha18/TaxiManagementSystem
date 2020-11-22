@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <head>
+	    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+    </head> 
+    <style>
+    body{
+	background-image: url('https://images.unsplash.com/photo-1490650404312-a2175773bbf5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80');
+	background-size:1900px 900px;
+    }
+    </style>
+    <h1 class="wc">WELCOME TO BOOKIT</h1>
+    <h4 class="wc">Hello, {{ current_user.username }}!</h4>
+{% endblock %}

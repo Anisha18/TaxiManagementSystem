@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <head>
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/register.css') }}">
+    </head>
+    <style>
+    body{
+        background-image: url('https://images.unsplash.com/photo-1516733968668-dbdce39c4651?ixlib=rb-1.2.1&auto=format&fit=crop&w=1100&q=80');
+        background-size:1900px 900px;
+    }
+    </style>
+    <h1 class="r">Register</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p class="r1">
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}<br>
+            {% for error in form.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p class="r1">
+            {{ form.email.label }}<br>
+            {{ form.email(size=64) }}<br>
+            {% for error in form.email.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p class="r1">
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}<br>
+            {% for error in form.password.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p class="r1">
+            {{ form.password2.label }}<br>
+            {{ form.password2(size=32) }}<br>
+            {% for error in form.password2.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p class="r1">{{ form.submit() }}</p>
+    </form>
+{% endblock %}
