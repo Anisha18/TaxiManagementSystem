@@ -10,6 +10,8 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
+    contact = db.Column(db.Integer, index=True, unique=True)
+    address = db.Column(db.String(120), index=True)
     password_hash = db.Column(db.String(128))
 
     def __repr__(self):
@@ -21,6 +23,18 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+class Customer(UserMixin, db.Model):
+    __tablename__='customer'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), index=True)
+    phno = db.Column(db.Integer, index=True)
+    date = db.Column(db.Integer, index=True)
+    source = db.Column(db.String(120), index=True)
+    dest = db.Column(db.String(120), index=True)
+
+    def __repr__(self):
+        return '<Customer {}>'.format(self.name)
 
 @login.user_loader
 def load_user(id):

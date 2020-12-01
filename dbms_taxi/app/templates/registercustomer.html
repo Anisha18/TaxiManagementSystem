@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <head>
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/registercustomer.css') }}">
+    </head>
+    <style>
+    body{
+        background-image: url('https://image.freepik.com/free-photo/taxi-driver-greeting-his-passengers-with-their-luggage_1423-1811.jpg');
+        background-size:1850px 850px;
+    }
+    </style> 
+    <h1 class="r">Register Customer</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p class="r1">
+            {{ form.name.label }}<br>
+            {{ form.name(size=32) }}<br>
+            {% for error in form.name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p class="r1">
+            {{ form.phno.label }}<br>
+            {{ form.phno(size=32) }}<br>
+            {% for error in form.phno.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+	<p class="r1">
+	    {{ form.date.label }}<br>
+	    {{ form.date(size=32) }}<br>
+	    {% for error in form.date.errors %}
+	    <span style="color: red;">[{{ error }}]</span>
+	    {% endfor %}
+	</p>
+	<p class="r1">
+	    {{ form.source.label }}<br>
+	    {{ form.source(size=32) }}<br>
+	    {% for error in form.source.errors %}
+	    <span style="color: red;">[{{ error }}]</span>
+	    {% endfor %}
+	</p>
+        <p class="r1">
+            {{ form.dest.label }}<br>
+            {{ form.dest(size=32) }}<br>
+            {% for error in form.dest.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+	<p class="r1">{{ form.submit() }}</p>
+    </form>
+{% endblock %}
+
