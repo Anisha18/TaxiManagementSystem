@@ -28,23 +28,23 @@
             {% endfor %}
         </p>
 	<p class="r1">
-	    {{ form.date.label }}<br>
-	    {{ form.date(size=32) }}<br>
-	    {% for error in form.date.errors %}
+	    {{ form.mailid.label }}<br>
+	    {{ form.mailid(size=32) }}<br>
+	    {% for error in form.mailid.errors %}
 	    <span style="color: red;">[{{ error }}]</span>
 	    {% endfor %}
 	</p>
 	<p class="r1">
-	    {{ form.source.label }}<br>
-	    {{ form.source(size=32) }}<br>
-	    {% for error in form.source.errors %}
+	    {{ form.gender.label }}<br>
+	    {{ form.gender(size=32) }}<br>
+	    {% for error in form.gender.errors %}
 	    <span style="color: red;">[{{ error }}]</span>
 	    {% endfor %}
 	</p>
         <p class="r1">
-            {{ form.dest.label }}<br>
-            {{ form.dest(size=32) }}<br>
-            {% for error in form.dest.errors %}
+            {{ form.caddress.label }}<br>
+            {{ form.caddress(size=32) }}<br>
+            {% for error in form.caddress.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>

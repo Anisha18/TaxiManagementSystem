@@ -10,7 +10,7 @@
    	background-size:1900px 900px;
     }
     </style>
-    <h1 class="s">Driver Sign In</h1>
+    <h1 class="s">Owner Sign In</h1>
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         <p class="s1">
@@ -31,4 +31,5 @@
         <p class="s1">{{ form.submit() }}</p>
     </form>
     <p class="s">Don't have an account? <a class="s2" href="{{ url_for('register') }}">Click to Register!</a></p>
+    <p class="s">Are you a Customer? <a class="s2" href="{{ url_for('regcust') }}">Register here!</a></p>
 {% endblock %}

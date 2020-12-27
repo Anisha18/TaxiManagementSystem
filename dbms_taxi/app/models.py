@@ -5,12 +5,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class User(UserMixin, db.Model):
-    __tablename__='user'
+    __tablename__='owner'
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
-    contact = db.Column(db.Integer, index=True, unique=True)
+    contact = db.Column(db.String(64), index=True, unique=True)
     address = db.Column(db.String(120), index=True)
     password_hash = db.Column(db.String(128))
 
@@ -28,13 +28,44 @@ class Customer(UserMixin, db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), index=True)
-    phno = db.Column(db.Integer, index=True)
-    date = db.Column(db.Integer, index=True)
-    source = db.Column(db.String(120), index=True)
-    dest = db.Column(db.String(120), index=True)
+    phno = db.Column(db.String(64), index=True)
+    mailid = db.Column(db.String(120), index=True)
+    gender = db.Column(db.String(120), index=True)
+    caddress = db.Column(db.String(120), index=True)
 
     def __repr__(self):
         return '<Customer {}>'.format(self.name)
+
+class Cab(UserMixin, db.Model):
+    __tablename__='cab'
+
+    id = db.Column(db.Integer, primary_key=True)
+    dname = db.Column(db.String(64), index=True)
+    Vno = db.Column(db.String(64), index=True)
+    Vtype = db.Column(db.String(64), index=True)
+    From = db.Column(db.String(64), index=True)
+    To = db.Column(db.String(64), index=True)
+    phone = db.Column(db.String(64), index=True)
+
+    def __repr__(self):
+        return '<Cab {}>'.format(self.dname) 
+
+class BookCab(UserMixin, db.Model):
+    __tablename__='bookcab'
+
+    id = db.Column(db.Integer, primary_key=True)
+    Yname = db.Column(db.String(64), index=True)
+    dname = db.Column(db.String(64), index=True)
+    Vno = db.Column(db.String(64), index=True)
+    Vtype = db.Column(db.String(64), index=True)
+    From = db.Column(db.String(64), index=True)
+    To = db.Column(db.String(64), index=True)
+    phone = db.Column(db.String(64), index=True)
+    Bdate = db.Column(db.String(64), index=True)
+    Btime = db.Column(db.String(64), index=True)
+
+    def __repr__(self):
+        return  '<BookCab {}>'.format(self.dname)
 
 @login.user_loader
 def load_user(id):

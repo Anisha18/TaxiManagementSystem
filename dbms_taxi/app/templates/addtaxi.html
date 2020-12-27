@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <head>
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/addtaxi.css') }}">
+    </head>
+    <style>
+    body{
+        background-image: url('https://images.unsplash.com/photo-1516733968668-dbdce39c4651?ixlib=rb-1.2.1&auto=format&fit=crop&w=1100&q=80');
+        background-size:1900px 900px;
+    }
+    </style>
+    <h1 class="r">Add Taxi</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p class="r1">
+            {{ form.dname.label }}<br>
+            {{ form.dname(size=32) }}<br>
+            {% for error in form.dname.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p class="r1">
+            {{ form.Vno.label }}<br>
+            {{ form.Vno(size=32) }}<br>
+            {% for error in form.Vno.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+	<p class="r1">
+	    {{ form.Vtype.label }}<br>
+	    {{ form.Vtype(size=32) }}<br>
+	    {% for error in form.Vtype.errors %}
+	    <span style="color: red;">[{{ error }}]</span>
+	    {% endfor %}
+	</p>
+	<p class="r1">
+	    {{ form.From.label }}<br>
+	    {{ form.From(size=32) }}<br>
+	    {% for error in form.From.errors %}
+	    <span style="color: red;">[{{ error }}]</span>
+	    {% endfor %}
+	</p>
+        <p class="r1">
+            {{ form.To.label }}<br>
+            {{ form.To(size=32) }}<br>
+            {% for error in form.To.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+	<p class="r1">
+	    {{ form.phone.label }}<br>
+	    {{ form.phone(size=32) }}<br>
+	    {% for error in form.phone.errors %}
+	    <span style="color: red;">[{{ error }}]</span>
+	    {% endfor %}
+	</p> 
+        <p class="r1">{{ form.submit() }}</p>
+    </form>
+{% endblock %}
+

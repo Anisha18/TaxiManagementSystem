@@ -2,8 +2,8 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, CustomerRegistrationForm
-from app.models import User, Customer
+from app.forms import LoginForm, RegistrationForm, CustomerRegistrationForm, AddTaxisForm, BookCabForm
+from app.models import User, Customer, Cab, BookCab
 
 
 @app.route('/')
@@ -37,7 +37,7 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/registerdriver', methods=['GET', 'POST'])
+@app.route('/registerowner', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -56,9 +56,55 @@ def register():
 def regcust():
     form = CustomerRegistrationForm()
     if form.validate_on_submit():
-        customer = Customer(name=form.name.data, phno=form.phno.data, date=form.date.data, source=form.source.data, dest=form.dest.data)
+        customer = Customer(name=form.name.data, phno=form.phno.data, mailid=form.mailid.data, gender=form.gender.data, caddress=form.caddress.data)
         db.session.add(customer)
         db.session.commit()
-        flash('Thank you, your taxi has been booked with BookIt!')
-        return redirect(url_for('index'))
+        flash('Thank you, your account have been registered with BookIt!')
+        return redirect(url_for('custhome'))
     return render_template('registercustomer.html', title='Register Customer', form=form)
+
+
+@app.route('/cabs', methods=['GET', 'POST', 'PUT', 'DELETE'])
+def cabs():
+    form=AddTaxisForm()
+    if form.validate_on_submit():
+        cab =  Cab(dname=form.dname.data, Vno=form.Vno.data, Vtype=form.Vtype.data, From=form.From.data, To=form.To.data, phone=form.phone.data)
+        db.session.add(cab)
+        db.session.commit()
+        flash('The details of the vehicle has been added successfully!')
+        return redirect(url_for('index'))
+    return render_template('addtaxi.html', title='Add Taxi', form=form)
+
+
+@app.route('/custhome', methods=['GET','POST'])
+def custhome():
+    return render_template('custhome.html', title='Customer Home')
+
+
+@app.route('/check', methods=['GET','POST'])
+def check():
+    taxi = Cab.query.all()
+    results = [
+                {
+                    "dname":one.dname,
+                    "Vno":one.Vno,
+                    "Vtype":one.Vtype,
+                    "From":one.From,
+                    "To":one.To,
+                    "phone":one.phone
+                } for one in taxi]
+    return render_template('check.html', title='Check Availability', results=results)
+
+
+@app.route('/bookcab/<dname>/<Vno>/<Vtype>/<From>/<To>/<phone>', methods=['GET','POST'])
+def bookcab(dname,Vno,Vtype,From,To,phone):
+    form = BookCabForm()
+    if form.validate_on_submit():
+        bcab = BookCab(dname=dname, Vno=Vno, Vtype=Vtype, From=From, To=To, phone=phone, Yname=form.Yname.data, Bdate=form.Bdate.data, Btime=form.Btime.data)
+        db.session.add(bcab)
+        db.session.commit()
+        flash('Thank You, your taxi has been booked with BookIt!')
+        return redirect(url_for('custhome'))
+    return render_template('bookcab.html', title='Book Taxi', dname=dname, Vno=Vno, Vtype=Vtype, From=From, To=To, phone=phone, form=form)
+
+

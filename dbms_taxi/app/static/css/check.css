@@ -1,0 +1,17 @@
+.wc{
+        color:#319cc0;
+        text-align:center;
+        font-size:30px;
+        font-family:"Times New Roman", Times, serif;
+}
+
+table,th,td{
+	border:1px solid black;
+}
+
+.center{
+	margin-left:auto;
+	margin-right:auto;
+}
+
+

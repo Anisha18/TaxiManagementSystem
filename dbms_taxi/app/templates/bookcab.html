@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <head>
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/addtaxi.css') }}">
+    </head>
+    <style>
+    body{
+        background-image: url('https://images.unsplash.com/photo-1516733968668-dbdce39c4651?ixlib=rb-1.2.1&auto=format&fit=crop&w=1100&q=80');
+        background-size:1900px 900px;
+    }
+    </style>
+    <h1 class="r">Book Taxi</h1>
+    <div class='r'>
+	    <p>Driver Name: {{ dname }}</p>
+	    <p>Vehicle No: {{ Vno }}</p>
+	    <p>Vehicle Type: {{ Vtype }}</p>
+	    <p>From: {{ From }}</p>
+	    <p>To: {{ To }}</p>
+	    <p>Phone No: {{ phone }}</p>
+    </div>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+	<p class="r1">
+	    {{ form.Yname.label }}<br>
+	    {{ form.Yname(size=32) }}<br>
+	    {% for error in form.Yname.errors %}
+	    <span style="color: red;">[{{ error }}]</span>
+	    {% endfor %}
+	</p>
+	<p class="r1">
+	    {{ form.Bdate.label }}<br>
+	    {{ form.Bdate(size=32) }}<br>
+	    {% for error in form.Bdate.errors %}
+	    <span style="color: red;">[{{ error }}]</span>
+	    {% endfor %}
+	</p>
+	<p class="r1">
+            {{ form.Btime.label }}<br>
+            {{ form.Btime(size=32) }}<br>
+            {% for error in form.Btime.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p class="r1">{{ form.submit() }}</p>
+    </form>
+{% endblock %}
+
+
