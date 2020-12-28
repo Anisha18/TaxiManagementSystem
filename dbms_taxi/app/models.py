@@ -32,9 +32,16 @@ class Customer(UserMixin, db.Model):
     mailid = db.Column(db.String(120), index=True)
     gender = db.Column(db.String(120), index=True)
     caddress = db.Column(db.String(120), index=True)
+    password_hash = db.Column(db.String(128))
 
     def __repr__(self):
         return '<Customer {}>'.format(self.name)
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
 class Cab(UserMixin, db.Model):
     __tablename__='cab'
@@ -46,6 +53,8 @@ class Cab(UserMixin, db.Model):
     From = db.Column(db.String(64), index=True)
     To = db.Column(db.String(64), index=True)
     phone = db.Column(db.String(64), index=True)
+    owner_id = db.Column(db.Integer, db.ForeignKey('owner.id'))
+    flag = db.Column(db.Integer)
 
     def __repr__(self):
         return '<Cab {}>'.format(self.dname) 
@@ -54,7 +63,6 @@ class BookCab(UserMixin, db.Model):
     __tablename__='bookcab'
 
     id = db.Column(db.Integer, primary_key=True)
-    Yname = db.Column(db.String(64), index=True)
     dname = db.Column(db.String(64), index=True)
     Vno = db.Column(db.String(64), index=True)
     Vtype = db.Column(db.String(64), index=True)
@@ -63,6 +71,8 @@ class BookCab(UserMixin, db.Model):
     phone = db.Column(db.String(64), index=True)
     Bdate = db.Column(db.String(64), index=True)
     Btime = db.Column(db.String(64), index=True)
+    cab_id = db.Column(db.Integer, db.ForeignKey('cab.id'))
+    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
 
     def __repr__(self):
         return  '<BookCab {}>'.format(self.dname)

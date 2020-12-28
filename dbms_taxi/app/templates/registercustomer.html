@@ -6,7 +6,7 @@
     </head>
     <style>
     body{
-        background-image: url('https://image.freepik.com/free-photo/taxi-driver-greeting-his-passengers-with-their-luggage_1423-1811.jpg');
+        background-image: url('https://static4.depositphotos.com/1011084/358/i/600/depositphotos_3581828-stock-photo-backgrounds.jpg');
         background-size:1850px 850px;
     }
     </style> 
@@ -45,6 +45,20 @@
             {{ form.caddress.label }}<br>
             {{ form.caddress(size=32) }}<br>
             {% for error in form.caddress.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+	<p class="r1">
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}<br>
+            {% for error in form.password.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p class="r1">
+            {{ form.password2.label }}<br>
+            {{ form.password2(size=32) }}<br>
+            {% for error in form.password2.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>

@@ -39,13 +39,34 @@ class RegistrationForm(FlaskForm):
         except (phonenumbers.phonenumberutil.NumberParseException, ValueError):
                 raise ValidationError('Invalid phone number')
 
+
+class CustLoginForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    remember_me =BooleanField('Remember Me')
+    submit = SubmitField('Sign In')
+
+
 class CustomerRegistrationForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     phno = StringField('Phone Number', validators=[DataRequired()])
     mailid = StringField('Email id', validators=[DataRequired()])
     gender = StringField('Gender', validators=[DataRequired()])
     caddress = StringField('Address', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    password2 = PasswordField(
+        'Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Submit')
+
+    def validate_username(self, name):
+        user = Customer.query.filter_by(name=name.data).first()
+        if user is not None:
+            raise ValidationError('Please use a different name.')
+
+    def validate_email(self, mailid):
+        user = Customer.query.filter_by(mailid=mailid.data).first()
+        if user is not None:
+            raise ValidationError('Please use a different email address.')
 
     def validate_phone(self,phno):
         try:
@@ -75,7 +96,6 @@ class AddTaxisForm(FlaskForm):
 
 
 class BookCabForm(FlaskForm):
-    Yname = StringField('Your Name', validators=[DataRequired()])
     Bdate = StringField('Date', validators=[DataRequired()])
     Btime = StringField('Time', validators=[DataRequired()])
     submit = SubmitField('Book Taxi')

@@ -2,21 +2,21 @@
 
 {% block content %}
     <head>
-	    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
-    </head> 
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+    </head>
     <style>
     body {
-	background-image: url('https://static4.depositphotos.com/1011084/358/i/600/depositphotos_3581828-stock-photo-backgrounds.jpg');
-   	background-size:1900px 900px;
+        background-image: url('https://static4.depositphotos.com/1011084/358/i/600/depositphotos_3581828-stock-photo-backgrounds.jpg');
+        background-size:1900px 900px;
     }
     </style>
-    <h1 class="s">Owner Sign In</h1>
+    <h1 class="s">Customer Sign In</h1>
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         <p class="s1">
-            {{ form.username.label }}<br>
-            {{ form.username(size=32) }}<br>
-            {% for error in form.username.errors %}
+            {{ form.name.label }}<br>
+            {{ form.name(size=32) }}<br>
+            {% for error in form.name.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
@@ -30,5 +30,6 @@
         <p class="s1">{{ form.remember_me() }} {{ form.remember_me.label }}</p>
         <p class="s1">{{ form.submit() }}</p>
     </form>
-    <p class="s">Don't have an account? <a class="s2" href="{{ url_for('register') }}">Click to Register!</a></p>
+    <p class="s">Don't have an account? <a class="s2" href="{{ url_for('regcust') }}">Register here!</a></p>
 {% endblock %}
+

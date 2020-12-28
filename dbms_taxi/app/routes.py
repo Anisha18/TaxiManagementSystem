@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, CustomerRegistrationForm, AddTaxisForm, BookCabForm
+from app.forms import LoginForm, RegistrationForm, CustomerRegistrationForm, AddTaxisForm, BookCabForm, CustLoginForm
 from app.models import User, Customer, Cab, BookCab
 
 
@@ -52,15 +52,42 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 
+@app.route('/custlogin', methods=['GET', 'POST'])
+def custlogin():
+    if current_user.is_authenticated:
+        return redirect(url_for('customer'))
+    form = CustLoginForm()
+    if form.validate_on_submit():
+        user = Customer.query.filter_by(name=form.name.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return redirect(url_for('custlogin'))
+        login_user(user, remember=form.remember_me.data)
+        next_page = request.args.get('next')
+        if not next_page or url_parse(next_page).netloc != '':
+            next_page = url_for('custhome')
+        return redirect(next_page)
+    return render_template('custlogin.html', title='Sign In', form=form)
+
+
+@app.route('/custlogout')
+def custlogout():
+    logout_user()
+    return redirect(url_for('custhome'))
+
+
 @app.route('/customer', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def regcust():
+    if current_user.is_authenticated:
+        return redirect(url_for('custhome'))
     form = CustomerRegistrationForm()
     if form.validate_on_submit():
         customer = Customer(name=form.name.data, phno=form.phno.data, mailid=form.mailid.data, gender=form.gender.data, caddress=form.caddress.data)
+        customer.set_password(form.password.data)
         db.session.add(customer)
         db.session.commit()
         flash('Thank you, your account have been registered with BookIt!')
-        return redirect(url_for('custhome'))
+        return redirect(url_for('custlogin'))
     return render_template('registercustomer.html', title='Register Customer', form=form)
 
 
@@ -68,7 +95,7 @@ def regcust():
 def cabs():
     form=AddTaxisForm()
     if form.validate_on_submit():
-        cab =  Cab(dname=form.dname.data, Vno=form.Vno.data, Vtype=form.Vtype.data, From=form.From.data, To=form.To.data, phone=form.phone.data)
+        cab =  Cab(dname=form.dname.data, Vno=form.Vno.data, Vtype=form.Vtype.data, From=form.From.data, To=form.To.data, phone=form.phone.data, flag=0, owner_id=current_user.id)
         db.session.add(cab)
         db.session.commit()
         flash('The details of the vehicle has been added successfully!')
@@ -83,7 +110,7 @@ def custhome():
 
 @app.route('/check', methods=['GET','POST'])
 def check():
-    taxi = Cab.query.all()
+    taxi = Cab.query.filter_by(flag=0).all() 
     results = [
                 {
                     "dname":one.dname,
@@ -92,7 +119,7 @@ def check():
                     "From":one.From,
                     "To":one.To,
                     "phone":one.phone
-                } for one in taxi]
+                    } for one in taxi]
     return render_template('check.html', title='Check Availability', results=results)
 
 
@@ -100,7 +127,9 @@ def check():
 def bookcab(dname,Vno,Vtype,From,To,phone):
     form = BookCabForm()
     if form.validate_on_submit():
-        bcab = BookCab(dname=dname, Vno=Vno, Vtype=Vtype, From=From, To=To, phone=phone, Yname=form.Yname.data, Bdate=form.Bdate.data, Btime=form.Btime.data)
+        obj = Cab.query.filter_by(Vno=Vno).first()
+        bcab = BookCab(dname=dname, Vno=Vno, Vtype=Vtype, From=From, To=To, phone=phone, Bdate=form.Bdate.data, Btime=form.Btime.data, cab_id=obj.id, customer_id=current_user.id) 
+        obj.flag=1
         db.session.add(bcab)
         db.session.commit()
         flash('Thank You, your taxi has been booked with BookIt!')
