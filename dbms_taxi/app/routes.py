@@ -120,15 +120,16 @@ def check():
                     "To":one.To,
                     "phone":one.phone
                     } for one in taxi]
-    return render_template('check.html', title='Check Availability', results=results)
+    return render_template('check.html', title='Check Availability', results=results) 
 
 
 @app.route('/bookcab/<dname>/<Vno>/<Vtype>/<From>/<To>/<phone>', methods=['GET','POST'])
 def bookcab(dname,Vno,Vtype,From,To,phone):
     form = BookCabForm()
     if form.validate_on_submit():
-        obj = Cab.query.filter_by(Vno=Vno).first()
-        bcab = BookCab(dname=dname, Vno=Vno, Vtype=Vtype, From=From, To=To, phone=phone, Bdate=form.Bdate.data, Btime=form.Btime.data, cab_id=obj.id, customer_id=current_user.id) 
+        obj = Cab.query.filter_by(Vno=Vno).first() 
+        cust_id = Customer.query.filter_by(name=form.yname.data).first()
+        bcab = BookCab(dname=dname, Vno=Vno, Vtype=Vtype, From=From, To=To, phone=phone, yname=form.yname.data, Bdate=form.Bdate.data, Btime=form.Btime.data, cab_id=obj.id, customer_id=cust_id.id) 
         obj.flag=1
         db.session.add(bcab)
         db.session.commit()

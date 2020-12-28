@@ -69,6 +69,7 @@ class BookCab(UserMixin, db.Model):
     From = db.Column(db.String(64), index=True)
     To = db.Column(db.String(64), index=True)
     phone = db.Column(db.String(64), index=True)
+    yname = db.Column(db.String(64), index=True)
     Bdate = db.Column(db.String(64), index=True)
     Btime = db.Column(db.String(64), index=True)
     cab_id = db.Column(db.Integer, db.ForeignKey('cab.id'))

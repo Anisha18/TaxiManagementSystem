@@ -20,7 +20,14 @@
 	    <p>Phone No: {{ phone }}</p>
     </div>
     <form action="" method="post">
-        {{ form.hidden_tag() }} 
+        {{ form.hidden_tag() }}
+	<p class="r1">
+            {{ form.yname.label }}<br>
+            {{ form.yname(size=32) }}<br>
+            {% for error in form.yname.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
 	<p class="r1">
 	    {{ form.Bdate.label }}<br>
 	    {{ form.Bdate(size=32) }}<br>
