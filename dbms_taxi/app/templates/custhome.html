@@ -10,11 +10,14 @@
         background-size:1900px 900px;
     }
     </style>
-    <h1 class="wc">WELCOME TO BOOKIT</h1>
-    <h4 class="wc">Hello!</h4>
-    <p class="wc">We give customer satisfaction the utmost priority and so give ample options to book taxi by entering details like their journey pick-up point and the destination they need to reach.</p>
-    <div class="wc">
-	    <p>You can book the taxi here, Check Availability <a class="s2" href="{{ url_for('check') }}">Check</a></p>
+    <div class="container">
+    	<img src="https://images.unsplash.com/photo-1485739139909-d0d1783a7196?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="Taxi" class="center"/>
+	<div class="content">
+		<h1 class="wc" style="color: #ffffff;">WELCOME TO BOOKIT</h1>
+    		<h4 class="wc" style="color: #ffffff;">The one you can trust, travel securely with us</h4>
+	</div>
     </div>
+    <p class="wc">We give customer satisfaction the utmost priority and so give ample options to book taxi by entering details like their journey pick-up point and the destination they need to reach.</p>
+    <p class="wc">You can book the taxi here, Check Availability <a class="s2" href="{{ url_for('check') }}">Check</a></p>
 {% endblock %}
 

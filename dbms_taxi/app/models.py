@@ -44,7 +44,7 @@ class Customer(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
 class Cab(UserMixin, db.Model):
-    __tablename__='cab'
+    __tablename__='cab_details'
 
     id = db.Column(db.Integer, primary_key=True)
     dname = db.Column(db.String(64), index=True)
@@ -60,7 +60,7 @@ class Cab(UserMixin, db.Model):
         return '<Cab {}>'.format(self.dname) 
 
 class BookCab(UserMixin, db.Model):
-    __tablename__='bookcab'
+    __tablename__='booked_cab'
 
     id = db.Column(db.Integer, primary_key=True)
     dname = db.Column(db.String(64), index=True)
@@ -72,7 +72,7 @@ class BookCab(UserMixin, db.Model):
     yname = db.Column(db.String(64), index=True)
     Bdate = db.Column(db.String(64), index=True)
     Btime = db.Column(db.String(64), index=True)
-    cab_id = db.Column(db.Integer, db.ForeignKey('cab.id'))
+    cab_id = db.Column(db.Integer, db.ForeignKey('cab_details.id'))
     customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
 
     def __repr__(self):

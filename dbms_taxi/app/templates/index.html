@@ -12,10 +12,6 @@
     </style>
     <h1 class="wc">WELCOME TO BOOKIT</h1>
     <h4 class="wc">Hello, {{ current_user.username }}!</h4>
-    <div class="wc">
-	    <ul>
-		    <li>To add the vehicle details <a class="s2" href="{{ url_for('cabs') }}">Add Taxi</a></li>
-		    
-	    </ul>
-    </div>
+    <img src="https://images.unsplash.com/photo-1490650404312-a2175773bbf5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="Taxi" class="center"/>
+    <p class="wc">The owner provides taxi to the drivers, he can add the taxi and details of the driver here. To add the details <a class="s2" href="{{ url_for('cabs') }}">Click here!</a></p> 
 {% endblock %}
